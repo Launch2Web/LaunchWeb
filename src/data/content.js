@@ -204,7 +204,7 @@ export const works = [
     summary:
       'Modern healthcare & clinic management website with patient appointment booking, specialty doctor schedules, and instant contact channels.',
     focus: ['Healthcare UI', 'Appointment Flow', 'React', 'Responsive Design'],
-    url: 'https://srisaiclinic.up.railway.app/',
+    url: 'https://srisaimedicalservice.com/',
     image:
       'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
     imageAlt: 'Sri Sai Clinic healthcare web interface on desktop screen',
