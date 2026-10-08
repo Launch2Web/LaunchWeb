@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
 export function SEO({
-  title = 'Launch Web | Web Design, Custom Software & Digital Solutions',
-  description = 'Launch Web is a modern technology studio building high-speed websites, custom software applications, AI ads, and digital solutions to grow your business.',
-  keywords = 'Launch Web, LaunchWeb, Launch Web studio, Web Design Company, Web Development Company, Website Development, Custom Software Development, Video Editing, AI Ads, Business Website Development',
-  canonicalUrl = 'https://launchweb-kqa9.onrender.com/',
-  ogImage = 'https://launchweb-kqa9.onrender.com/logo.png',
+  title = 'Launch Web Solutions | Best Web Developer & Software Company in Chennai, Kanchipuram & Vandavasi',
+  description = 'Launch Web Solutions (launchwebsolutions.in) is a premier web development company & custom software studio serving Chennai, Kanchipuram, Vandavasi & global clients. Expert web developers building high-speed websites, custom web apps & AI promo ads.',
+  keywords = 'launchwebsolutions.in, Launch Web Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, web developer, website developer, web developer Vandavasi, web developer Kanchipuram, web developer Chennai, website development company in Vandavasi, website development company in Kanchipuram, website development company in Chennai, web design company Chennai, custom software development company, AI ads, shop promotion video, React developer, Spring Boot software developer',
+  canonicalUrl = 'https://launchwebsolutions.in/',
+  ogImage = 'https://launchwebsolutions.in/logo.png',
   schemaJson = null,
 }) {
   useEffect(() => {

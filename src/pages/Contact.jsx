@@ -9,19 +9,19 @@ export function Contact() {
   const contactSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'Contact LaunchWeb',
-    description: 'Get in touch with LaunchWeb for custom web design, software development, and digital solutions.',
-    url: 'https://launchweb-kqa9.onrender.com/contact',
+    name: 'Contact Launch Web Solutions',
+    description: 'Get in touch with Launch Web Solutions for custom web design, software development, and digital solutions in Vandavasi, Kanchipuram, and Chennai.',
+    url: 'https://launchwebsolutions.in/contact',
     mainEntity: {
       '@type': 'ProfessionalService',
-      name: 'LaunchWeb',
+      name: 'Launch Web Solutions',
       telephone: '+919585523658',
       email: 'launchwebservice@gmail.com',
-      url: 'https://launchweb-kqa9.onrender.com/',
+      url: 'https://launchwebsolutions.in/',
       sameAs: [
         company.instagram,
         company.linkedin,
-        'https://launchweb-kqa9.onrender.com/'
+        'https://launchwebsolutions.in/'
       ]
     },
   }
@@ -29,10 +29,10 @@ export function Contact() {
   return (
     <>
       <SEO
-        title="Contact LaunchWeb | Start Your Web &amp; Software Project"
-        description="Contact LaunchWeb for web design, custom software development, or digital solution inquiries. Reach us by project form, phone, LinkedIn, Instagram or instant WhatsApp."
-        keywords="Contact LaunchWeb, Web design inquiry, Hire web developers, Software development contact, Get project quote"
-        canonicalUrl="https://launchweb-kqa9.onrender.com/contact"
+        title="Contact Launch Web Solutions | Web Developer in Vandavasi, Kanchipuram & Chennai"
+        description="Contact Launch Web Solutions (launchwebsolutions.in) for custom web design, software development, or AI ads inquiries. Call +91 95855 23658 or instant WhatsApp."
+        keywords="Contact Launch Web Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, Hire web developer Vandavasi, Hire web developer Kanchipuram, Hire web developer Chennai"
+        canonicalUrl="https://launchwebsolutions.in/contact"
         schemaJson={contactSchema}
       />
 

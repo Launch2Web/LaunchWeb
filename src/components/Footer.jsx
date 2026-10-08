@@ -110,15 +110,33 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Service Locations / SEO Keywords Bar */}
+        <div className="py-8 border-t border-[#E2E8F0] mt-8 grid gap-6 md:grid-cols-3 text-xs text-[#475569]">
+          <div>
+            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Vandavasi</h5>
+            <p className="text-[11px] leading-relaxed">Top website developer &amp; web design company in Vandavasi. Business websites, mobile apps &amp; local shop promotion.</p>
+          </div>
+          <div>
+            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Kanchipuram</h5>
+            <p className="text-[11px] leading-relaxed">Expert web developers in Kanchipuram building custom software, retail e-commerce stores &amp; digital solutions.</p>
+          </div>
+          <div>
+            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Chennai</h5>
+            <p className="text-[11px] leading-relaxed">Full-stack web software development agency in Chennai crafting React &amp; Spring Boot enterprise web applications.</p>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#475569]">
-          <p>© 2026 LaunchWeb. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span>Web Design</span>
+        <div className="pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#475569]">
+          <p>© 2026 Launch Web Solutions (launchwebsolutions.in). All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <span>Web Developer</span>
+            <span>•</span>
+            <span>Web Design Company</span>
             <span>•</span>
             <span>Custom Software</span>
             <span>•</span>
-            <span>Digital Solutions</span>
+            <span>Vandavasi | Kanchipuram | Chennai</span>
           </div>
         </div>
       </div>

@@ -1,19 +1,42 @@
 export const company = {
-  name: 'LaunchWeb',
-  tagline: 'Web Design • Software • Digital Solutions',
+  name: 'Launch Web Solutions',
+  tagline: 'Web Developer • Custom Software • Digital Solutions',
+  domain: 'launchwebsolutions.in',
+  url: 'https://launchwebsolutions.in/',
   email: 'launchwebservice@gmail.com',
   phones: [
     { label: '+91 95855 23658', href: 'tel:+919585523658', clean: '+919585523658' },
     { label: '+91 90251 02679', href: 'tel:+919025102679', clean: '+919025102679' },
   ],
-  whatsapp: 'https://wa.me/919025102679?text=Hello%20LaunchWeb%20team,%20I%20would%20like%20to%20discuss%20a%20project.',
+  whatsapp: 'https://wa.me/919025102679?text=Hello%20Launch%20Web%20Solutions%20team,%20I%20would%20like%20to%20discuss%20a%20project.',
   instagram: 'https://www.instagram.com/launch____web/',
   instagramHandle: '@launch____web',
-  linkedin: 'https://www.linkedin.com/company/launchweb',
-  linkedinHandle: 'LaunchWeb on LinkedIn',
-  location: 'Remote-first — Serving clients worldwide',
+  linkedin: 'https://www.linkedin.com/company/launch2web/',
+  linkedinHandle: 'Launch Web Solutions on LinkedIn',
+  location: 'Vandavasi • Kanchipuram • Chennai, Tamil Nadu (Serving Worldwide)',
   founded: '2024',
 }
+
+export const serviceLocations = [
+  {
+    city: 'Vandavasi',
+    title: 'Launch Web Solutions Vandavasi',
+    keywords: 'Web Developer Vandavasi | Website Development Company in Vandavasi',
+    desc: 'Premier website developer & custom software agency in Vandavasi providing high-speed business websites, mobile-first web design & digital store promotion.',
+  },
+  {
+    city: 'Kanchipuram',
+    title: 'Launch Web Solutions Kanchipuram',
+    keywords: 'Web Developer Kanchipuram | Web Design Company Kanchipuram',
+    desc: 'Expert web design company & web developers in Kanchipuram crafting bespoke business portals, retail e-commerce stores, LMS platforms & AI ads.',
+  },
+  {
+    city: 'Chennai',
+    title: 'Launch Web Solutions Chennai',
+    keywords: 'Web Developer Chennai | Custom Software Development Chennai',
+    desc: 'Leading full-stack web software development company in Chennai engineering high-performance React & Java Spring Boot web applications.',
+  },
+]
 
 export const navLinks = [
   { to: '/', label: 'Home', end: true },

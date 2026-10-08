@@ -48,10 +48,10 @@ export function Home() {
   return (
     <>
       <SEO
-        title="LaunchWeb | Web Design, Software & Digital Solutions"
-        description="LaunchWeb builds modern websites, custom software and digital solutions that help businesses establish a stronger digital presence and grow online."
-        keywords="Web Design Company, Web Development Company, Website Development, Custom Software Development, Web Design Services, Software Development Services, Digital Solutions, Custom Web Applications, Responsive Web Design"
-        canonicalUrl="https://launchweb-kqa9.onrender.com/"
+        title="Launch Web Solutions | Best Web Developer & Software Company in Chennai, Kanchipuram & Vandavasi"
+        description="Launch Web Solutions (launchwebsolutions.in) builds high-speed websites, custom enterprise software, AI video ads & digital solutions for businesses in Chennai, Kanchipuram, Vandavasi & worldwide."
+        keywords="launchwebsolutions.in, Launch Web Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, web developer, website developer, web developer Vandavasi, web developer Kanchipuram, web developer Chennai, website development company in Vandavasi, website development company in Kanchipuram, website development company in Chennai, web design company Chennai, custom software development company, AI ads, shop promotion video, React developer"
+        canonicalUrl="https://launchwebsolutions.in/"
         schemaJson={faqSchema}
       />
 

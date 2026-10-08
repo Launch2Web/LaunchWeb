@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #0F172A;
+}
+
+.composition {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Scene 1: Hook ── */
+#scene-hook {
+  background: #0F172A;
+  flex-direction: column;
+}
+#hook-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 72px;
+  color: #F8FAFC;
+  text-align: center;
+  max-width: 1200px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+/* ── Scene 2: Hero Reveal ── */
+#scene-hero {
+  background: #F8FAFC;
+  flex-direction: column;
+  gap: 24px;
+}
+#hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #4F46E5;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+#hero-brand .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16A34A;
+}
+.hero-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 80px;
+  color: #0F172A;
+  text-align: center;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  max-width: 1100px;
+}
+.hero-line {
+  display: block;
+}
+.hero-gradient {
+  background: linear-gradient(135deg, #4F46E5 0%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#hero-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #475569;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Scene 3: Stats ── */
+#scene-stats {
+  background: #F8FAFC;
+  flex-direction: row;
+  gap: 28px;
+  padding: 0 120px;
+}
+.stat-card {
+  flex: 1;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 52px;
+  letter-spacing: -0.03em;
+}
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 8px;
+}
+#stat-1 .stat-value { color: #4F46E5; }
+#stat-2 .stat-value { color: #2563EB; }
+#stat-3 .stat-value { color: #16A34A; }
+#stat-4 .stat-value { color: #7C3AED; }
+
+/* ── Scene 4: Services ── */
+#scene-services {
+  background: #F8FAFC;
+  flex-direction: row;
+  gap: 28px;
+  padding: 0 100px;
+}
+.service-card {
+  flex: 1;
+  background: white;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.service-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(79, 70, 229, 0.08);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4F46E5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  width: fit-content;
+}
+.service-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.service-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ── Scene 5: Outro ── */
+#scene-outro {
+  background: #0F172A;
+  flex-direction: column;
+  gap: 20px;
+}
+#outro-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 96px;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#outro-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #94A3B8;
+}
+#outro-url {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  color: #64748B;
+  letter-spacing: 0.02em;
+}

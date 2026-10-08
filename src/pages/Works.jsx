@@ -21,7 +21,7 @@ export function Works() {
   const worksSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'LaunchWeb Portfolio Projects',
+    name: 'Launch Web Solutions Portfolio Projects',
     itemListElement: works.map((w, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
@@ -29,7 +29,7 @@ export function Works() {
         '@type': 'CreativeWork',
         name: w.name,
         description: w.summary,
-        url: w.url || 'https://launchweb-kqa9.onrender.com/works',
+        url: w.url || 'https://launchwebsolutions.in/works',
         image: w.image,
       },
     })),
@@ -43,10 +43,10 @@ export function Works() {
   return (
     <>
       <SEO
-        title="Selected Projects &amp; Case Studies | LaunchWeb"
-        description="Explore real production websites, Sri Sai Clinic healthcare portal, LMS platforms, and custom software web applications designed and developed by LaunchWeb."
-        keywords="Sri Sai Clinic website, LaunchWeb projects, Web development portfolio, React web apps, Custom software showcase"
-        canonicalUrl="https://launchweb-kqa9.onrender.com/works"
+        title="Our Works & Portfolio | Launch Web Solutions (Vandavasi, Kanchipuram, Chennai)"
+        description="Explore live websites, healthcare portals (Sri Sai Clinic), LMS apps, and custom software created by Launch Web Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
+        keywords="Launch Web Solutions portfolio, Sri Sai Clinic website, Web development portfolio, React web apps, Custom software showcase, Web developer projects"
+        canonicalUrl="https://launchwebsolutions.in/works"
         schemaJson={worksSchema}
       />
 

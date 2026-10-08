@@ -13,13 +13,13 @@ export function Services() {
     serviceType: 'Web Design & Development Services',
     provider: {
       '@type': 'ProfessionalService',
-      name: 'LaunchWeb',
-      url: 'https://launchweb-kqa9.onrender.com/',
+      name: 'Launch Web Solutions',
+      url: 'https://launchwebsolutions.in/',
     },
-    areaServed: 'Worldwide',
+    areaServed: ['Vandavasi', 'Kanchipuram', 'Chennai', 'Tamil Nadu', 'Worldwide'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'LaunchWeb Services Catalog',
+      name: 'Launch Web Solutions Services Catalog',
       itemListElement: services.map((s, idx) => ({
         '@type': 'Offer',
         itemOffered: {
@@ -35,10 +35,10 @@ export function Services() {
   return (
     <>
       <SEO
-        title="Web Design &amp; Development Services | LaunchWeb"
-        description="LaunchWeb designs and develops modern, responsive websites, custom software, and digital solutions for businesses that want a stronger digital presence."
-        keywords="Web Design Services, Custom Software Development, Business Website Development, Web Application Development, UI/UX Design, E-Commerce Solutions"
-        canonicalUrl="https://launchweb-kqa9.onrender.com/services"
+        title="Web Design & Software Services | Launch Web Solutions (Vandavasi, Kanchipuram, Chennai)"
+        description="Explore custom web design, web development, enterprise software, LMS, e-commerce, and AI video ads services by Launch Web Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
+        keywords="Launch Web Solutions services, Web developer Vandavasi, Web developer Kanchipuram, Web developer Chennai, Custom software development, Web design company Tamil Nadu, AI ads"
+        canonicalUrl="https://launchwebsolutions.in/services"
         schemaJson={serviceSchema}
       />
 
