@@ -1,4 +1,4 @@
-import { CheckCircle2, ShieldCheck, Zap, Code2, Lock } from 'lucide-react'
+import { CheckCircle2, ShieldCheck, Zap, Code2, Lock, Sparkles } from 'lucide-react'
 import { SectionHeading, SectionReveal } from '../components/Section'
 import { ServiceCard } from '../components/ServiceCard'
 import { FAQ } from '../components/FAQ'
@@ -13,13 +13,13 @@ export function Services() {
     serviceType: 'Web Design & Development Services',
     provider: {
       '@type': 'ProfessionalService',
-      name: 'Launch Web Solutions',
+      name: 'LaunchWeb Solutions',
       url: 'https://launchwebsolutions.in/',
     },
     areaServed: ['Vandavasi', 'Kanchipuram', 'Chennai', 'Tamil Nadu', 'Worldwide'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Launch Web Solutions Services Catalog',
+      name: 'LaunchWeb Solutions Services Catalog',
       itemListElement: services.map((s, idx) => ({
         '@type': 'Offer',
         itemOffered: {
@@ -35,100 +35,98 @@ export function Services() {
   return (
     <>
       <SEO
-        title="Web Design & Software Services | Launch Web Solutions (Vandavasi, Kanchipuram, Chennai)"
-        description="Explore custom web design, web development, enterprise software, LMS, e-commerce, and AI video ads services by Launch Web Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
-        keywords="Launch Web Solutions services, Web developer Vandavasi, Web developer Kanchipuram, Web developer Chennai, Custom software development, Web design company Tamil Nadu, AI ads"
+        title="Web Design &amp; Digital Solutions Services | LaunchWeb Solutions"
+        description="Explore custom web design, high-speed website development, business web platforms, e-commerce, and AI video ads by LaunchWeb Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
+        keywords="LaunchWeb Solutions services, Web developer Vandavasi, Web developer Kanchipuram, Web developer Chennai, Digital solutions, Web design company Tamil Nadu, AI ads"
         canonicalUrl="https://launchwebsolutions.in/services"
         schemaJson={serviceSchema}
       />
 
-      <div className="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-[#F8FAFC] text-[#0F172A] min-h-screen">
+      <div className="pt-26 pb-16 sm:pt-32 sm:pb-24 bg-[#F8FAFC] text-slate-900 min-h-screen">
         <div className="container-page">
-          <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E2E8F0] bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#4F46E5] shadow-xs">
-              Our Services
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-[#0F172A] leading-tight">
-              Professional Web Design &amp; Software Development
+          <div className="max-w-3xl space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#4338CA]">
+              Services &amp; Capabilities
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 leading-tight">
+              Web Design &amp; Digital Solutions
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed text-[#475569]">
-              We combine thoughtful UI design, robust software engineering, and search engine readiness into every digital product we deliver for startups, local businesses, and growing enterprises.
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600">
+              We combine user-focused interface design, robust software engineering, and search engine readiness into every digital product we deliver.
             </p>
           </div>
 
-          {/* Service Cards Bento Grid */}
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {services.map((service, index) => (
-              <SectionReveal key={service.id} delay={index * 0.05} className={service.span}>
-                <ServiceCard service={service} featured={service.span.includes('col-span-2')} />
-              </SectionReveal>
+          {/* Service Cards Grid - Clean, simple, uniform */}
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((service) => (
+              <ServiceCard key={service.id} service={service} />
             ))}
           </div>
 
           {/* Quality Guarantee Standards Bar */}
-          <div className="mt-16 rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-10 shadow-xs">
-            <div className="text-center max-w-xl mx-auto space-y-2 mb-8">
-              <h2 className="font-display text-2xl font-bold text-[#0F172A]">
-                Included with Every Service
+          <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-7 sm:p-9 shadow-xs">
+            <div className="text-center max-w-xl mx-auto space-y-1.5 mb-8">
+              <h2 className="font-display text-2xl font-bold text-slate-900">
+                Included with Every LaunchWeb Project
               </h2>
-              <p className="text-xs text-[#475569]">
-                Enterprise standards built into every line of code we write
+              <p className="text-xs text-slate-500">
+                Architectural quality and security built into every line of code we ship
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2">
-                <div className="flex items-center gap-2 text-[#4F46E5]">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-5 space-y-1.5">
+                <div className="flex items-center gap-2 text-[#4338CA]">
                   <Zap className="h-5 w-5" />
-                  <h3 className="font-display text-sm font-bold text-[#0F172A]">90+ Performance</h3>
+                  <h3 className="font-display text-sm font-bold text-slate-900">95+ Performance</h3>
                 </div>
-                <p className="text-xs text-[#475569] leading-relaxed">
-                  Optimized Core Web Vitals and lightning-fast page loading.
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Optimized Core Web Vitals and lightning-fast sub-second loading speeds.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2">
-                <div className="flex items-center gap-2 text-[#2563EB]">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-5 space-y-1.5">
+                <div className="flex items-center gap-2 text-[#EA580C]">
                   <ShieldCheck className="h-5 w-5" />
-                  <h3 className="font-display text-sm font-bold text-[#0F172A]">SEO Foundation</h3>
+                  <h3 className="font-display text-sm font-bold text-slate-900">SEO &amp; Schema Built-in</h3>
                 </div>
-                <p className="text-xs text-[#475569] leading-relaxed">
-                  Clean semantic HTML5 hierarchy, schema markup, and metadata.
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Clean semantic HTML5 hierarchy, JSON-LD schema markup, and metadata.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2">
-                <div className="flex items-center gap-2 text-[#16A34A]">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-5 space-y-1.5">
+                <div className="flex items-center gap-2 text-emerald-700">
                   <Code2 className="h-5 w-5" />
-                  <h3 className="font-display text-sm font-bold text-[#0F172A]">Clean React Code</h3>
+                  <h3 className="font-display text-sm font-bold text-slate-900">Clean React &amp; Spring Boot</h3>
                 </div>
-                <p className="text-xs text-[#475569] leading-relaxed">
-                  Maintainable, zero-bloat codebases built for long-term growth.
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Modular, zero-bloat codebases built for scalability and maintainability.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2">
-                <div className="flex items-center gap-2 text-[#7C3AED]">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-5 space-y-1.5">
+                <div className="flex items-center gap-2 text-[#4338CA]">
                   <Lock className="h-5 w-5" />
-                  <h3 className="font-display text-sm font-bold text-[#0F172A]">SSL &amp; Security</h3>
+                  <h3 className="font-display text-sm font-bold text-slate-900">SSL &amp; Security</h3>
                 </div>
-                <p className="text-xs text-[#475569] leading-relaxed">
-                  HTTPS data encryption and production-grade security standards.
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  End-to-end data encryption and production-grade security standards.
                 </p>
               </div>
             </div>
           </div>
 
           {/* Custom Solution Callout */}
-          <div className="mt-12 rounded-3xl border border-[#E2E8F0] bg-gradient-to-r from-[#4F46E5]/10 via-white to-[#2563EB]/10 p-8 sm:p-12 text-center space-y-4 shadow-xl shadow-slate-900/5">
-            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F172A]">
-              Need a Custom Digital Solution?
+          <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 text-center space-y-4 shadow-xs">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Need a Custom Web Solution or Architecture?
             </h2>
-            <p className="text-sm sm:text-base text-[#475569] max-w-xl mx-auto leading-relaxed">
-              If your business requires a unique web workflow, specific database integration, or API backend, we're ready to engineer it.
+            <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+              If your business requires a tailored digital portal, appointment system, database integration, or API backend, our senior engineering team is ready to build it.
             </p>
             <div className="pt-2">
-              <Button to="/contact">
+              <Button to="/contact" size="lg" variant="primary">
                 Discuss Your Scope
               </Button>
             </div>

@@ -1,526 +1,840 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, Phone, Mail, Sparkles, Layers, ShieldCheck, Zap } from 'lucide-react'
-import { Button } from '../components/Button'
-import { HeroComposition } from '../components/HeroComposition'
-import { SectionHeading, SectionReveal } from '../components/Section'
-import { ServiceCard } from '../components/ServiceCard'
-import { FAQ } from '../components/FAQ'
-import { WorkModal } from '../components/WorkModal'
-import { ContactForm } from '../components/ContactForm'
-import { SEO } from '../components/SEO'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import {
+  Layout,
+  Globe,
+  Cpu,
+  ShoppingBag,
+  Video,
+  Sparkles,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  ShieldCheck,
+  Zap,
+  Clock,
+  MessageSquare,
+} from 'lucide-react'
+import { servicesData } from '../data/servicesData'
 import {
   company,
-  faqs,
+  testimonials,
   processSteps,
-  services,
   stats,
-  techStack,
-  whyChoose,
+  faqs,
   works,
+  projectTypes,
 } from '../data/content'
-import { trackPhoneClick, trackEmailClick, trackWhatsAppClick, trackViewProjectClick } from '../utils/analytics'
+import { HeroSvg, AboutSvg, Work1Svg, Work2Svg, Work3Svg } from '../components/Illustrations'
+
+function getServiceIcon(iconName, size = 20) {
+  switch (iconName) {
+    case 'Layout':
+      return <Layout size={size} />
+    case 'Globe':
+      return <Globe size={size} />
+    case 'Cpu':
+      return <Cpu size={size} />
+    case 'ShoppingBag':
+      return <ShoppingBag size={size} />
+    case 'Video':
+      return <Video size={size} />
+    case 'Sparkles':
+      return <Sparkles size={size} />
+    default:
+      return <Layout size={size} />
+  }
+}
+
+function WhatsAppIcon({ size = 18, className = "" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  )
+}
 
 export function Home() {
-  const [activeWork, setActiveWork] = useState(null)
+  const { slug } = useParams()
+  const [activeService, setActiveService] = useState(null)
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: 'Web Design & Development',
+    message: ''
+  })
 
-  const featuredWork = works.find((w) => w.id === 'sri-sai-clinic') || works[0]
-  const otherWorks = works.filter((w) => w.id !== featuredWork.id).slice(0, 5)
+  // Handle hash changes: #service-[slug], #about, #process, #work, #contact, etc.
+  useEffect(() => {
+    function handleRouting() {
+      const hash = window.location.hash.replace(/^#/, '')
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.a,
-      },
-    })),
+      // Check route param first, then hash
+      const targetSlug = slug || (hash.startsWith('service-') ? hash.replace('service-', '') : null)
+
+      if (targetSlug) {
+        const found = servicesData.find((s) => s.slug === targetSlug)
+        if (found) {
+          setActiveService(found)
+          document.title = `${found.name} | Launch Web Solutions`
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+          return
+        }
+      }
+
+      // If not a service slug
+      setActiveService(null)
+      document.title = 'Launch Web Solutions | High-Performance Websites & Digital Solutions'
+
+      if (hash && hash !== 'home') {
+        const targetElement = document.getElementById(hash)
+        if (targetElement) {
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }, 60)
+          return
+        }
+      }
+      if (hash === 'home' || !hash) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }
+
+    handleRouting()
+    window.addEventListener('hashchange', handleRouting)
+    return () => window.removeEventListener('hashchange', handleRouting)
+  }, [slug])
+
+  const handleFormChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleOpenWorkModal = (work) => {
-    trackViewProjectClick(work.name)
-    setActiveWork(work)
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    if (!formData.name || !formData.email) {
+      alert('Please fill in your name and email address.')
+      return
+    }
+    setFormSubmitted(true)
   }
 
   return (
     <>
-      <SEO
-        title="Launch Web Solutions | Best Web Developer & Software Company in Chennai, Kanchipuram & Vandavasi"
-        description="Launch Web Solutions (launchwebsolutions.in) builds high-speed websites, custom enterprise software, AI video ads & digital solutions for businesses in Chennai, Kanchipuram, Vandavasi & worldwide."
-        keywords="launchwebsolutions.in, Launch Web Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, web developer, website developer, web developer Vandavasi, web developer Kanchipuram, web developer Chennai, website development company in Vandavasi, website development company in Kanchipuram, website development company in Chennai, web design company Chennai, custom software development company, AI ads, shop promotion video, React developer"
-        canonicalUrl="https://launchwebsolutions.in/"
-        schemaJson={faqSchema}
-      />
+      {/* Dynamic Service View */}
+      {activeService ? (
+        <div id="service-view" key={activeService.slug} className="view-transition">
+          {/* Breadcrumb & Hero Header */}
+          <section className="service-hero">
+            <div className="wrap">
+              <nav className="crumb">
+                <a href="#services" className="crumb-back">
+                  <ArrowLeft size={14} /> Back to All Services
+                </a>
+                <span className="crumb-sep">/</span>
+                <span className="crumb-active">{activeService.name}</span>
+              </nav>
 
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-28 bg-[#F8FAFC]">
-        {/* Subtle Background Glows */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(79,70,229,0.08),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(37,99,235,0.06),transparent_45%)]" />
-
-        <div className="container-page relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border border-[#E2E8F0] bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#4F46E5] shadow-xs"
-            >
-              <span className="h-2 w-2 rounded-full bg-[#16A34A] animate-pulse" />
-              Modern Digital Solutions Studio
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 font-display text-4xl font-extrabold tracking-tight text-[#0F172A] sm:text-5xl lg:text-[4.25rem] leading-[1.08]"
-            >
-              Digital Experiences <br />
-              Built to Move Your <br />
-              <span className="bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#2563EB] bg-clip-text text-transparent">
-                Business Forward.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-[#475569]"
-            >
-              LaunchWeb designs and develops modern websites, custom software and digital solutions that help businesses look professional, work smarter and grow online.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 flex flex-wrap items-center gap-4"
-            >
-              <Button to="/contact" size="lg" variant="primary">
-                Start a Project
-              </Button>
-              <Button to="/works" size="lg" variant="secondary">
-                View Our Work
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mt-10 pt-6 border-t border-[#E2E8F0] flex flex-wrap items-center gap-6 text-xs font-semibold text-[#475569] uppercase tracking-wider"
-            >
-              <span className="flex items-center gap-1.5 text-[#0F172A]">
-                <Sparkles className="h-4 w-4 text-[#4F46E5]" />
-                Web Design
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5 text-[#0F172A]">
-                <Layers className="h-4 w-4 text-[#2563EB]" />
-                Custom Software
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5 text-[#0F172A]">
-                <Zap className="h-4 w-4 text-[#16A34A]" />
-                Digital Solutions
-              </span>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <HeroComposition />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. TRUST BAR */}
-      <section className="border-y border-[#E2E8F0] bg-white py-12">
-        <div className="container-page">
-          <h2 className="text-center text-xs font-bold uppercase tracking-widest text-[#475569] mb-8">
-            Built for businesses that want to grow digitally
-          </h2>
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="text-center p-5 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] shadow-2xs"
-              >
-                <p className="font-display text-3xl font-extrabold text-[#0F172A]">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs font-semibold text-[#475569]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. SERVICES SECTION */}
-      <section className="py-20 sm:py-28 bg-[#F8FAFC]">
-        <div className="container-page">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="Services"
-              title="Everything You Need to Build Your Digital Presence."
-              description="From high-converting business websites to custom web applications built around your actual operations."
-            />
-            <Button to="/services" variant="secondary">
-              All Services
-            </Button>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {services.map((service, index) => (
-              <SectionReveal key={service.id} delay={index * 0.05} className={service.span}>
-                <ServiceCard service={service} featured={service.span.includes('col-span-2')} />
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. WHY LAUNCHWEB */}
-      <section className="border-y border-[#E2E8F0] bg-white py-20 sm:py-28">
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Why Choose LaunchWeb"
-            title="More Than a Website. A Digital Foundation for Your Business."
-            description="We partner with local businesses, startups, and growing enterprises to craft technology solutions built for longevity."
-          />
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {whyChoose.map((item, index) => (
-              <SectionReveal
-                key={item.title}
-                delay={index * 0.05}
-                className="rounded-3xl border border-[#E2E8F0] bg-[#F8FAFC] p-8 space-y-4 hover:border-[#4F46E5]/50 transition-colors shadow-xs"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm font-bold text-[#4F46E5]">
-                    {item.number}
-                  </span>
-                  <ShieldCheck className="h-5 w-5 text-[#16A34A]" />
+              <div className="service-hero-content">
+                <div className="service-hero-badge">
+                  {getServiceIcon(activeService.icon, 16)}
+                  <span>{activeService.category || 'Service Offering'}</span>
                 </div>
-                <h3 className="font-display text-2xl font-bold text-[#0F172A]">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[#475569]">
-                  {item.text}
-                </p>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+                <h1 className="service-hero-title">{activeService.name}</h1>
+                <p className="service-hero-tag">{activeService.tag}</p>
 
-      {/* 5. PROCESS SECTION */}
-      <section className="py-20 sm:py-28 bg-[#F8FAFC]">
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Our Process"
-            title="From Idea to Launch."
-            description="A clear, transparent 5-step engineering process designed to keep your project on schedule and built with precision."
-          />
-
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {processSteps.map((step, idx) => (
-              <SectionReveal
-                key={step.step}
-                delay={idx * 0.06}
-                className="relative flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-6 space-y-4 shadow-xs"
-              >
-                <div>
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#4F46E5]/10 border border-[#4F46E5]/30 font-mono text-xs font-bold text-[#4F46E5]">
-                    {step.step}
-                  </span>
-                  <h3 className="mt-4 font-display text-xl font-bold text-[#0F172A]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-[#475569]">
-                    {step.text}
-                  </p>
+                <div className="service-hero-actions">
+                  <a className="btn primary" href="#contact">
+                    Get a Free Quote for this Service
+                  </a>
+                  <a
+                    className="btn ghost whatsapp-cta-btn"
+                    href={company.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                  >
+                    <WhatsAppIcon size={18} />
+                    <span>Chat on WhatsApp</span>
+                  </a>
                 </div>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. SELECTED WORK */}
-      <section className="border-y border-[#E2E8F0] bg-white py-20 sm:py-28">
-        <div className="container-page">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="Selected Work"
-              title="Work Built for Real Business."
-              description="Explore live websites, custom healthcare platforms, learning management tools, and business web applications shipped by LaunchWeb."
-            />
-            <Button to="/works" variant="secondary">
-              View All Projects →
-            </Button>
-          </div>
-
-          {/* Featured Project */}
-          <div className="mt-12">
-            <button
-              type="button"
-              onClick={() => handleOpenWorkModal(featuredWork)}
-              className="group relative w-full overflow-hidden rounded-3xl border border-[#E2E8F0] bg-[#F8FAFC] text-left transition-all duration-300 hover:border-[#4F46E5] hover:shadow-xl grid md:grid-cols-12 shadow-xs"
-            >
-              <div className="md:col-span-7 relative h-72 sm:h-96 overflow-hidden bg-white">
-                <img
-                  src={featuredWork.image}
-                  alt="Sri Sai Clinic business website designed by LaunchWeb"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  width="1200"
-                  height="800"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#F8FAFC]" />
-                <span className="absolute top-4 left-4 rounded-full bg-[#4F46E5] px-3.5 py-1 text-xs font-bold text-white shadow-md">
-                  ★ Featured Live Project
-                </span>
               </div>
+            </div>
+          </section>
 
-              <div className="md:col-span-5 p-8 flex flex-col justify-between space-y-6">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#4F46E5]">
-                      {featuredWork.category} • {featuredWork.type}
-                    </span>
-                    <ArrowUpRight className="h-5 w-5 text-[#475569] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#0F172A]" />
+          {/* Service Details Main Content */}
+          <section className="service-detail-body">
+            <div className="wrap service-detail-grid">
+              <article className="service-main-content">
+                {/* Executive Overview */}
+                <div className="detail-section">
+                  <span className="eyebrow">EXECUTIVE SUMMARY</span>
+                  <h2>Service Overview</h2>
+                  <p className="lead-text">{activeService.intro}</p>
+                  {activeService.more && <p>{activeService.more}</p>}
+                </div>
+
+                {/* Quick Highlights / Facts Cards */}
+                <div className="service-fact-cards">
+                  <div className="fact-card">
+                    <span className="fact-label">Best Suited For</span>
+                    <p className="fact-value">{activeService.best}</p>
                   </div>
-                  <h3 className="mt-3 font-display text-3xl font-extrabold text-[#0F172A]">
-                    {featuredWork.name}
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-[#475569]">
-                    {featuredWork.summary}
-                  </p>
+                  <div className="fact-card">
+                    <span className="fact-label">Estimated Timeline</span>
+                    <p className="fact-value">{activeService.time}</p>
+                  </div>
+                  <div className="fact-card">
+                    <span className="fact-label">Core Deliverables</span>
+                    <p className="fact-value">{activeService.deliv}</p>
+                  </div>
                 </div>
 
-                <div className="space-y-4 pt-4 border-t border-[#E2E8F0]">
-                  <div className="flex flex-wrap gap-2">
-                    {featuredWork.focus.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full bg-white border border-[#E2E8F0] px-3 py-1 text-[11px] font-medium text-[#475569]"
-                      >
-                        {item}
-                      </span>
+                {/* What is Included (Features) */}
+                <div className="detail-section">
+                  <span className="eyebrow">SCOPE &amp; DELIVERABLES</span>
+                  <h2>What is included with this service</h2>
+                  <div className="service-features-grid">
+                    {activeService.feat.map(([title, desc]) => (
+                      <div key={title} className="service-feature-card">
+                        <div className="feature-check">
+                          <CheckCircle2 size={18} />
+                        </div>
+                        <div>
+                          <h3>{title}</h3>
+                          <p>{desc}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold text-[#4F46E5]">
-                    Click to view project info &amp; live link →
-                  </p>
                 </div>
-              </div>
-            </button>
-          </div>
 
-          {/* Grid of Other Projects */}
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {otherWorks.map((work) => (
-              <button
-                key={work.id}
-                type="button"
-                onClick={() => handleOpenWorkModal(work)}
-                className="group relative overflow-hidden rounded-3xl border border-[#E2E8F0] bg-[#F8FAFC] text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#4F46E5]/60 hover:shadow-xl shadow-xs"
-              >
-                <div className="relative h-44 overflow-hidden bg-white">
-                  <img
-                    src={work.image}
-                    alt={`${work.name} project developed by LaunchWeb`}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    width="600"
-                    height="400"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] to-transparent" />
-                </div>
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#2563EB]">
-                      {work.category}
-                    </span>
-                    <ArrowUpRight className="h-4 w-4 text-[#475569] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                {/* Our 4-Step Process */}
+                <div className="detail-section">
+                  <span className="eyebrow">EXECUTION METHODOLOGY</span>
+                  <h2>Our step-by-step delivery process</h2>
+                  <div className="service-process-timeline">
+                    {activeService.proc.map(([title, desc], idx) => (
+                      <div key={title} className="process-timeline-step">
+                        <div className="step-badge">{`0${idx + 1}`}</div>
+                        <div className="step-body">
+                          <h3>{title}</h3>
+                          <p>{desc}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-[#0F172A]">
-                    {work.name}
-                  </h3>
-                  <p className="text-xs leading-relaxed text-[#475569] line-clamp-2">
-                    {work.summary}
-                  </p>
-                  <p className="pt-2 text-xs font-semibold text-[#4F46E5]">
-                    View Project Info →
-                  </p>
                 </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* 7. TECHNOLOGIES */}
-      <section className="py-20 sm:py-28 bg-[#F8FAFC]">
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Technologies"
-            title="Modern, Scalable Technologies."
-            description="We build using fast, maintainable frameworks trusted by modern SaaS leaders and enterprise systems."
-          />
+                {/* Why Choose This Service / Business Benefits */}
+                <div className="detail-section">
+                  <span className="eyebrow">VALUE CREATION</span>
+                  <h2>Key business advantages &amp; ROI</h2>
+                  <div className="service-benefits-grid">
+                    {activeService.ben.map((b) => (
+                      <div key={b} className="benefit-card">
+                        <span className="benefit-icon">✓</span>
+                        <p>{b}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {techStack.map((tech) => (
-              <div
-                key={tech.name}
-                className="rounded-2xl border border-[#E2E8F0] bg-white p-5 space-y-2 hover:border-[#4F46E5]/50 transition-colors shadow-xs"
-              >
-                <h3 className="font-display text-lg font-bold text-[#0F172A]">
-                  {tech.name}
-                </h3>
-                <p className="text-xs text-[#475569]">{tech.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                {/* Frequently Asked Questions */}
+                {activeService.faq && activeService.faq.length > 0 && (
+                  <div className="detail-section">
+                    <span className="eyebrow">QUESTIONS &amp; ANSWERS</span>
+                    <h2>Frequently asked questions</h2>
+                    <div className="faq-accordion-group">
+                      {activeService.faq.map(([q, a]) => (
+                        <details key={q} className="faq-item">
+                          <summary className="faq-question">{q}</summary>
+                          <div className="faq-answer">
+                            <p>{a}</p>
+                          </div>
+                        </details>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </article>
 
-      {/* 8. ABOUT LAUNCHWEB */}
-      <section className="border-t border-[#E2E8F0] bg-white py-20 sm:py-28">
-        <div className="container-page grid items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-7 space-y-6">
-            <SectionHeading
-              eyebrow="About LaunchWeb"
-              title="Technology That Solves Real Business Problems."
-              description="LaunchWeb was founded to bridge the gap between creative UI design and robust software engineering. We believe every business deserves a web presence that builds trust from the first second."
-            />
-            <p className="text-sm leading-relaxed text-[#475569]">
-              Whether you are a local clinic, an e-commerce shop, or a growing startup needing custom portal software, we write clean, maintainable code designed to perform under real traffic.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button to="/about" variant="secondary">
-                Learn More About Us
-              </Button>
+              {/* Sidebar */}
+              <aside className="service-sidebar">
+                <div className="sidebar-sticky-box">
+                  {/* Free Quote Callout Box */}
+                  <div className="sidebar-quotebox">
+                    <span className="quote-eyebrow">START A PROJECT</span>
+                    <h3>Ready to get started?</h3>
+                    <p>
+                      Tell us about your requirements and receive a transparent quotation within 24 hours.
+                    </p>
+                    <a className="btn primary quote-full-btn" href="#contact">
+                      Request a Free Quote
+                    </a>
+                    <a
+                      className="btn ghost quote-whatsapp-btn"
+                      href={company.whatsapp}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                    >
+                      <WhatsAppIcon size={18} />
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                    <div className="sidebar-reassurance">
+                      <span>✓ No obligations</span>
+                      <span>✓ Direct developer call</span>
+                    </div>
+                  </div>
+
+                  {/* All Services Navigation Box */}
+                  <div className="sidebar-services-nav">
+                    <h4>Other Services ({servicesData.length})</h4>
+                    <div className="sidebar-services-list">
+                      {servicesData.map((s) => (
+                        <a
+                          key={s.slug}
+                          href={`#service-${s.slug}`}
+                          className={`sidebar-service-item ${s.slug === activeService.slug ? 'active' : ''}`}
+                        >
+                          <span className="item-icon">{getServiceIcon(s.icon, 15)}</span>
+                          <span className="item-title">{s.name}</span>
+                          <span className="item-arrow">→</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </aside>
             </div>
-          </div>
-
-          <div className="lg:col-span-5 rounded-3xl border border-[#E2E8F0] bg-[#F8FAFC] p-8 space-y-6 shadow-xs">
-            <h3 className="font-display text-xl font-bold text-[#0F172A]">
-              Core Principles
-            </h3>
-            <ul className="space-y-4 text-sm text-[#475569]">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-[#4F46E5] shrink-0 mt-0.5" />
-                <span>Zero template bloat — clean bespoke React builds.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-[#2563EB] shrink-0 mt-0.5" />
-                <span>Mobile-first responsive UX tested across all viewports.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
-                <span>Direct collaboration with engineers, no middle management.</span>
-              </li>
-            </ul>
-          </div>
+          </section>
         </div>
-      </section>
-
-      {/* 9. HIGH-IMPACT CTA */}
-      <section className="relative overflow-hidden py-20 sm:py-28 bg-[#F8FAFC]">
-        <div className="container-page relative">
-          <div className="rounded-3xl border border-[#E2E8F0] bg-gradient-to-r from-[#4F46E5]/10 via-white to-[#2563EB]/10 p-8 sm:p-14 text-center max-w-4xl mx-auto space-y-6 shadow-xl shadow-slate-900/5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#4F46E5]/30 bg-[#4F46E5]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#4F46E5]">
-              Ready to Upgrade Your Digital Presence?
-            </span>
-
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-[#0F172A]">
-              Let's Build Something
-            </h2>
-
-            <p className="text-base sm:text-lg text-[#475569] max-w-xl mx-auto leading-relaxed">
-              Whether you need a professional website, custom software or a digital solution for your business, let's turn your idea into something real.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-              <Button to="/contact" size="lg" variant="primary">
-                Start a Project →
-              </Button>
-              <a
-                href={company.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick('cta_banner')}
-                className="inline-flex items-center gap-2 rounded-2xl border border-[#E2E8F0] bg-white px-7 py-3.5 text-base font-semibold text-[#16A34A] hover:bg-[#F8FAFC] shadow-xs transition-colors"
-              >
-                Talk on WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. CONTACT SECTION */}
-      <section className="py-20 sm:py-28 bg-white border-t border-[#E2E8F0]">
-        <div className="container-page grid gap-12 lg:grid-cols-12 items-start">
-          <div className="lg:col-span-5 space-y-6">
-            <SectionHeading
-              eyebrow="Contact"
-              title="Let's Build Your Online Presence"
-              description="Whether starting a new project or refreshing an existing business website, we are here to help."
-            />
-
-            <div className="space-y-6 pt-4 text-sm">
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2 shadow-xs">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#475569]">
-                  Phone / Call
+      ) : (
+        /* Home View */
+        <div id="home-view" key="home-view" className="view-transition">
+          {/* Hero Section */}
+          <section className="hero" id="home">
+            <div className="wrap">
+              <div>
+                <span className="eyebrow">
+                  Launch Web Solutions · Chennai · Kanchipuram · Vandavasi
+                </span>
+                <h1>We Design &amp; Engineer High-Performance Websites &amp; Digital Solutions.</h1>
+                <p>
+                  We build fast, secure, modern websites, business web platforms, e-commerce stores, and promotional video ads for growing businesses across India and worldwide.
                 </p>
-                {company.phones.map((phone) => (
+                <div className="btns">
+                  <a href="#contact" className="btn primary">
+                    Start Your Project
+                  </a>
+                  <a href="#services" className="btn ghost">
+                    Explore Services
+                  </a>
+                </div>
+              </div>
+              <HeroSvg />
+            </div>
+          </section>
+
+          {/* Stats Bar */}
+          <div className="stats">
+            <div className="wrap">
+              {stats.map((st) => (
+                <div key={st.label}>
+                  <b>{st.value}</b>
+                  <span>{st.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Services Section */}
+          <section id="services" className="services-section">
+            <div className="wrap">
+              <div className="head">
+                <span className="eyebrow">WHAT WE DO</span>
+                <h2>Services built for business growth</h2>
+                <p>
+                  From custom high-performance websites and e-commerce storefronts to promotional video editing and AI commercials, we deliver complete digital solutions tailored for real growth.
+                </p>
+              </div>
+
+              <div className="services-grid">
+                {servicesData.map((s, idx) => (
                   <a
-                    key={phone.href}
-                    href={phone.href}
-                    onClick={() => trackPhoneClick(phone.label)}
-                    className="flex items-center gap-2 font-display text-lg font-bold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                    className="service-card"
+                    href={`#service-${s.slug}`}
+                    key={s.slug}
+                    aria-label={`Learn more about ${s.name}`}
                   >
-                    <Phone className="h-4 w-4 text-[#2563EB]" />
-                    {phone.label}
+                    <div className="service-card-top">
+                      <div className={`service-icon-box icon-${s.icon.toLowerCase()}`}>
+                        {getServiceIcon(s.icon, 22)}
+                      </div>
+                      <span className="service-card-num">{`0${idx + 1}`}</span>
+                    </div>
+
+                    <div className="service-card-body">
+                      <h3 className="service-card-title">{s.name}</h3>
+                      <p className="service-card-tag">{s.tag}</p>
+                    </div>
+
+                    <div className="service-card-foot">
+                      <span className="service-card-cta">
+                        Explore service details
+                        <ArrowRight size={15} className="cta-arrow" />
+                      </span>
+                    </div>
                   </a>
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 space-y-2 shadow-xs">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#475569]">
-                  Email
-                </p>
-                <a
-                  href={`mailto:${company.email}`}
-                  onClick={() => trackEmailClick(company.email)}
-                  className="flex items-center gap-2 font-display text-lg font-bold text-[#0F172A] hover:text-[#4F46E5] transition-colors"
-                >
-                  <Mail className="h-4 w-4 text-[#4F46E5]" />
-                  {company.email}
-                </a>
+              {/* Quality Standards Bar */}
+              <div className="services-standards-bar">
+                <div className="standard-item">
+                  <div className="standard-icon"><Zap size={18} /></div>
+                  <div>
+                    <b>Sub-Second Loading</b>
+                    <p>95+ Google Lighthouse Core Web Vitals score.</p>
+                  </div>
+                </div>
+                <div className="standard-item">
+                  <div className="standard-icon"><ShieldCheck size={18} /></div>
+                  <div>
+                    <b>100% Hand-Crafted</b>
+                    <p>Clean modern architecture with zero builder bloat.</p>
+                  </div>
+                </div>
+                <div className="standard-item">
+                  <div className="standard-icon"><MessageSquare size={18} /></div>
+                  <div>
+                    <b>WhatsApp &amp; Lead CTAs</b>
+                    <p>Built-in conversion triggers that turn visitors into inquiries.</p>
+                  </div>
+                </div>
+                <div className="standard-item">
+                  <div className="standard-icon"><Clock size={18} /></div>
+                  <div>
+                    <b>Dedicated Support</b>
+                    <p>Reliable post-launch updates and continuous guidance.</p>
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
+
+          {/* About Us Section */}
+          <section id="about" className="alt">
+            <div className="wrap split">
+              <AboutSvg />
+              <div>
+                <span className="eyebrow">About Launch Web Solutions</span>
+                <h2>Built on technical craft, speed &amp; business clarity</h2>
+                <p>
+                  Launch Web Solutions is a digital technology studio based in Tamil Nadu—serving clients across Chennai, Kanchipuram, Vandavasi, and worldwide. We combine clean visual design with solid full-stack engineering to build websites and web applications that actually deliver results.
+                </p>
+                <ul className="checks">
+                  <li>100% custom code with zero slow page builders or generic templates</li>
+                  <li>Mobile-first architecture targeting 95+ Google Lighthouse scores</li>
+                  <li>Transparent pricing with no hidden surprises or vendor lock-in</li>
+                  <li>Reliable post-launch maintenance, security updates, and technical support</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Process Section */}
+          <section id="process">
+            <div className="wrap">
+              <div className="head">
+                <span className="eyebrow">How We Work</span>
+                <h2>A simple, transparent 5-step process</h2>
+              </div>
+              <div className="steps" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+                {processSteps.map((p) => (
+                  <div className="step" key={p.step}>
+                    <small>STEP {p.step}</small>
+                    <h3>{p.title}</h3>
+                    <p>{p.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Work Section */}
+          <section id="work" className="alt">
+            <div className="wrap">
+              <div className="head">
+                <span className="eyebrow">Featured Work</span>
+                <h2>Proven solutions delivered for growing businesses</h2>
+                <p>Explore real live websites, portals, and web applications built by Launch Web Solutions.</p>
+              </div>
+              <div className="grid3">
+                {/* 1. Sri Sai Clinic */}
+                <div className="work">
+                  <Work1Svg />
+                  <div>
+                    <span>Healthcare Portal</span>
+                    <h3>Sri Sai Clinic</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Fast, patient-friendly medical portal with doctor specialties, OPD schedules, and direct appointment booking.
+                    </p>
+                    <a
+                      href="https://srisaimedicalservice.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+
+                {/* 2. Sri Sai Sports */}
+                <div className="work">
+                  <Work3Svg />
+                  <div>
+                    <span>Retail &amp; E-Commerce</span>
+                    <h3>Sri Sai Sports Shop</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Sports gear and equipment storefront featuring direct WhatsApp ordering that increased footfall and customer inquiries.
+                    </p>
+                    <a
+                      href="https://sri-sai-sports.netlify.app/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+
+                {/* 3. Skill Bridge LMS */}
+                <div className="work">
+                  <Work2Svg />
+                  <div>
+                    <span>E-Learning Web App</span>
+                    <h3>Skill Bridge LMS</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Interactive course platform with video modules, student tracking, and scalable backend architecture.
+                    </p>
+                    <a
+                      href="https://skillbridgelearning.netlify.app/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+
+                {/* 4. Dhinagar S Portfolio */}
+                <div className="work">
+                  <Work2Svg />
+                  <div>
+                    <span>Engineer Showcase</span>
+                    <h3>Dhinagar S Portfolio</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Senior full-stack engineer portfolio presenting production web applications, system architectures, and technical skills.
+                    </p>
+                    <a
+                      href="https://dhinagars.netlify.app/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+
+                {/* 5. Adarsh Portfolio */}
+                <div className="work">
+                  <Work1Svg />
+                  <div>
+                    <span>Developer Portfolio</span>
+                    <h3>Adarsh Portfolio</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Clean developer layout highlighting full-stack engineering achievements, interactive badges, and client work.
+                    </p>
+                    <a
+                      href="https://adarshportfolio-qdxx.onrender.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+
+                {/* 6. Aswin B Portfolio */}
+                <div className="work">
+                  <Work3Svg />
+                  <div>
+                    <span>Frontend Showcase</span>
+                    <h3>Aswin B Portfolio</h3>
+                    <p style={{ marginBottom: '14px' }}>
+                      Fast, lightweight frontend showcase with smooth navigation, crisp typography, and responsive interactive cards.
+                    </p>
+                    <a
+                      href="https://regal-sunshine-dfda35.netlify.app/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--purple)', fontWeight: 600, fontSize: '13.5px' }}
+                    >
+                      Visit Live Website ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section>
+            <div className="wrap">
+              <div className="head">
+                <span className="eyebrow">Client Testimonials</span>
+                <h2>Verified feedback from our partners</h2>
+              </div>
+              <div className="grid3">
+                {testimonials.map((t) => (
+                  <div className="card quote" key={t.id}>
+                    <p style={{ fontSize: '15px', lineHeight: 1.6, fontStyle: 'italic' }}>
+                      “{t.quote}”
+                    </p>
+                    <cite>
+                      <b>{t.client}</b>
+                      <span style={{ display: 'block', fontSize: '13px', color: 'var(--text)', fontWeight: 400 }}>
+                        {t.role}, {t.company} ({t.location})
+                      </span>
+                    </cite>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="alt" id="faq">
+            <div className="wrap">
+              <div className="head">
+                <span className="eyebrow">FAQ</span>
+                <h2>Frequently asked questions</h2>
+              </div>
+              <div className="faq">
+                {faqs.map((f) => (
+                  <details key={f.q}>
+                    <summary>{f.q}</summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Call to Action Banner */}
+          <div className="cta">
+            <div className="wrap">
+              <h2>Ready to build your high-performance website?</h2>
+              <p>Tell us about your project and we will get back to you with ideas and a clear quote within one business day.</p>
+              <a href="#contact" className="btn amber">
+                Request a Free Quote
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Section (Always visible at the bottom) */}
+      <section id="contact">
+        <div className="wrap contact">
+          <div className="info">
+            <span className="eyebrow">Contact Launch Web Solutions</span>
+            <h2>Let’s talk about your project</h2>
+            <p>Share a few details and our engineering team will reach out with actionable ideas and a clear quote.</p>
+            
+            <p>
+              <b>Official Email</b>
+              <a href="mailto:launchwebservice@gmail.com" style={{ color: 'var(--purple)', fontWeight: 600 }}>
+                ✉ launchwebservice@gmail.com
+              </a>
+            </p>
+
+            <p>
+              <b>Phone Numbers</b>
+              <span style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '4px' }}>
+                <a href="tel:+919585523658" style={{ color: 'var(--indigo)', fontWeight: 600 }}>
+                  📞 +91 95855 23658
+                </a>
+                <a href="tel:+919025102679" style={{ color: 'var(--indigo)', fontWeight: 600 }}>
+                  📞 +91 90251 02679
+                </a>
+              </span>
+            </p>
+
+            <p>
+              <b>WhatsApp Direct Chat</b>
+              <a
+                href={company.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: '#128c7e',
+                  fontWeight: 600,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginTop: '4px',
+                }}
+              >
+                <WhatsAppIcon size={18} />
+                <span>+91 90251 02679 (Click to Chat on WhatsApp)</span>
+              </a>
+            </p>
+
+            <p>
+              <b>Social Profiles</b>
+              <span style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
+                <a href={company.instagram} target="_blank" rel="noreferrer" style={{ color: 'var(--orange)', fontWeight: 600 }}>
+                  Instagram (@launch____web)
+                </a>
+                <span>•</span>
+                <a href={company.linkedin} target="_blank" rel="noreferrer" style={{ color: 'var(--orange)', fontWeight: 600 }}>
+                  LinkedIn
+                </a>
+              </span>
+            </p>
+
+            <p>
+              <b>Regional Offices &amp; Engineering Hubs</b>
+              <span>Vandavasi · Kanchipuram · Chennai, Tamil Nadu, India (Serving Worldwide)</span>
+            </p>
           </div>
 
-          <div className="lg:col-span-7">
-            <ContactForm compact />
+          <div>
+            {formSubmitted ? (
+              <div
+                style={{
+                  background: '#f1eefc',
+                  border: '1px solid #c9c3ee',
+                  padding: '30px',
+                  borderRadius: '10px',
+                  textAlign: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    background: 'var(--purple)',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    fontSize: '22px',
+                  }}
+                >
+                  ✓
+                </div>
+                <h3 style={{ marginBottom: '8px', color: 'var(--ink)' }}>Message Sent Successfully!</h3>
+                <p style={{ color: 'var(--text)', fontSize: '15px', marginBottom: '20px' }}>
+                  Thank you, <b>{formData.name}</b>. We have received your project details and will
+                  contact you within one business day at <b>{formData.email}</b>.
+                </p>
+                <button
+                  type="button"
+                  className="btn ghost"
+                  onClick={() => {
+                    setFormSubmitted(false)
+                    setFormData({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      service: 'Web Design & Development',
+                      message: '',
+                    })
+                  }}
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleFormSubmit}>
+                <div className="two">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    placeholder="Your name *"
+                    aria-label="Name"
+                    required
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    placeholder="Email address *"
+                    aria-label="Email"
+                    required
+                  />
+                </div>
+                <div className="two">
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleFormChange}
+                    placeholder="Phone number"
+                    aria-label="Phone"
+                  />
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleFormChange}
+                    aria-label="Service"
+                  >
+                    {projectTypes.map((pt) => (
+                      <option key={pt} value={pt}>
+                        {pt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  placeholder="Tell us about your project requirements..."
+                  aria-label="Message"
+                  required
+                ></textarea>
+                <button className="btn primary" type="submit" style={{ width: '100%' }}>
+                  Send Message
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
-
-      <FAQ />
-
-      {/* Project Case Study Modal */}
-      <WorkModal work={activeWork} onClose={() => setActiveWork(null)} />
     </>
   )
 }

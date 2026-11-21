@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { faqs } from '../data/content'
 import { SectionHeading } from './Section'
@@ -8,49 +7,46 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section className="py-20 sm:py-28 border-t border-[#E2E8F0] bg-[#F8FAFC]">
+    <section className="py-16 sm:py-24 border-t border-slate-200 bg-[#F8FAFC]">
       <div className="container-page">
         <SectionHeading
           eyebrow="Frequently Asked Questions"
           title="Everything You Need to Know"
-          description="Clear answers about our development process, timelines, technology stack, and ongoing support."
+          description="Clear answers about our development process, timelines, custom software engineering, and partner support."
         />
 
-        <div className="mt-12 max-w-3xl space-y-3">
+        <div className="mt-10 max-w-3xl space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index
             return (
               <div
                 key={faq.q}
-                className="overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-xs transition-colors"
+                className={`overflow-hidden rounded-xl border bg-white transition-colors duration-150 ${
+                  isOpen ? 'border-slate-400' : 'border-slate-200'
+                }`}
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between p-6 text-left font-display text-lg font-semibold text-[#0F172A] hover:text-[#4F46E5] transition-colors"
+                  className="flex w-full items-center justify-between p-5 sm:p-6 text-left font-display text-base sm:text-lg font-bold text-slate-900 gap-4 cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    className={`h-5 w-5 text-[#475569] transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 text-[#4F46E5]' : ''
+                  <span className="leading-snug">{faq.q}</span>
+                  <div
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border transition-transform duration-150 ${
+                      isOpen
+                        ? 'bg-slate-100 border-slate-300 text-slate-900 rotate-180'
+                        : 'bg-slate-50 border-slate-200 text-slate-400'
                     }`}
-                  />
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </div>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <div className="px-6 pb-6 text-sm leading-relaxed text-[#475569] border-t border-[#E2E8F0] pt-4">
-                        {faq.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {isOpen && (
+                  <div className="px-5 sm:px-6 pb-6 text-sm leading-relaxed text-slate-600 border-t border-slate-100 pt-4">
+                    {faq.a}
+                  </div>
+                )}
               </div>
             )
           })}

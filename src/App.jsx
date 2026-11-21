@@ -1,11 +1,7 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
-import { Services } from './pages/Services'
-import { Works } from './pages/Works'
-import { About } from './pages/About'
-import { Contact } from './pages/Contact'
-import { NotFound } from './pages/NotFound'
 
 export default function App() {
   return (
@@ -13,11 +9,12 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="services" element={<Services />} />
-          <Route path="works" element={<Works />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="services" element={<Navigate to="/#services" replace />} />
+          <Route path="service/:slug" element={<Home />} />
+          <Route path="works" element={<Navigate to="/#work" replace />} />
+          <Route path="about" element={<Navigate to="/#about" replace />} />
+          <Route path="contact" element={<Navigate to="/#contact" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>

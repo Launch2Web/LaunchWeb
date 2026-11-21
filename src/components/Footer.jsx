@@ -1,143 +1,102 @@
-import { Link } from 'react-router-dom'
-import { Mail, Phone, MessageSquare, Shield, Instagram, Linkedin } from 'lucide-react'
-import { Logo } from './Logo'
-import { company, navLinks } from '../data/content'
-import { trackEmailClick, trackPhoneClick, trackWhatsAppClick } from '../utils/analytics'
+import React from 'react'
+import { Linkedin, Instagram } from 'lucide-react'
+import { servicesData } from '../data/servicesData'
+
+function WhatsAppIcon({ size = 18, className = "" }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  )
+}
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <footer className="border-t border-[#E2E8F0] bg-white text-[#0F172A] pt-16 pb-12">
-      <div className="container-page">
-        <div className="grid gap-10 md:grid-cols-12 pb-12 border-b border-[#E2E8F0]">
-          {/* Brand & Description */}
-          <div className="md:col-span-5 space-y-4">
-            <Logo size="md" />
-            <p className="text-sm leading-relaxed text-[#475569] max-w-sm">
-              LaunchWeb is a modern technology studio building websites, custom software, and digital solutions that help businesses build credibility and grow.
+    <footer>
+      <div className="wrap">
+        <div className="cols">
+          <div>
+            <div className="logo">
+              <img src="/logo-tight.png" alt="Launch Web Solutions" style={{ height: '42px', width: 'auto' }} />
+            </div>
+            <p style={{ maxWidth: '380px', lineHeight: 1.6, marginBottom: '16px' }}>
+              Launch Web Solutions designs and engineers high-speed websites, e-commerce storefronts, and AI video commercials for growing businesses across Chennai, Kanchipuram, Vandavasi, and worldwide.
             </p>
-            <div className="flex items-center gap-2 pt-2 text-xs text-[#16A34A] font-semibold">
-              <Shield className="h-4 w-4" />
-              <span>100% Production-Grade Code &amp; Data Security</span>
+            <div className="footer-social-links">
+              <a
+                href="https://www.linkedin.com/company/launch2web/"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-social-icon"
+                aria-label="LinkedIn"
+                title="Launch Web Solutions on LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://www.instagram.com/launch____web/"
+                target="_blank"
+                rel="noreferrer"
+                className="footer-social-icon"
+                aria-label="Instagram"
+                title="Launch Web Solutions on Instagram"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://wa.me/919025102679?text=Hello%20Launch%20Web%20Solutions%20team,%20I%20would%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noreferrer"
+                className="footer-social-icon footer-whatsapp-icon"
+                aria-label="WhatsApp"
+                title="Chat on WhatsApp (+91 9025102679)"
+              >
+                <WhatsAppIcon size={19} />
+              </a>
+            </div>
+            <div style={{ fontSize: '13px', color: '#9d9cb8' }}>
+              <span>Regional Hubs: Vandavasi · Kanchipuram · Chennai, Tamil Nadu, India</span>
             </div>
           </div>
 
-          {/* Quick Navigation Links */}
-          <div className="md:col-span-3 space-y-3">
-            <h4 className="font-display text-xs font-bold uppercase tracking-wider text-[#0F172A]">
-              Navigation
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              {navLinks.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-[#475569] hover:text-[#4F46E5] transition-colors inline-flex items-center gap-1 font-medium"
-                  >
-                    {link.label}
-                  </Link>
+          <div>
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#process">Our Process</a></li>
+              <li><a href="#work">Featured Projects</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+              <li><a href="#contact">Contact &amp; Free Quote</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Our Services</h4>
+            <ul>
+              {servicesData.map((s) => (
+                <li key={s.slug}>
+                  <a href={`#service-${s.slug}`}>{s.name}</a>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Direct Communication Channels */}
-          <div className="md:col-span-4 space-y-3">
-            <h4 className="font-display text-xs font-bold uppercase tracking-wider text-[#0F172A]">
-              Direct Contact &amp; Social
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a
-                  href={`mailto:${company.email}`}
-                  onClick={() => trackEmailClick(company.email)}
-                  className="text-[#475569] hover:text-[#4F46E5] transition-colors flex items-center gap-2 font-medium"
-                >
-                  <Mail className="h-4 w-4 text-[#4F46E5]" />
-                  <span>{company.email}</span>
-                </a>
-              </li>
-              {company.phones.map((phone) => (
-                <li key={phone.href}>
-                  <a
-                    href={phone.href}
-                    onClick={() => trackPhoneClick(phone.label)}
-                    className="text-[#475569] hover:text-[#2563EB] transition-colors flex items-center gap-2 font-medium"
-                  >
-                    <Phone className="h-4 w-4 text-[#2563EB]" />
-                    <span>{phone.label}</span>
-                  </a>
-                </li>
-              ))}
-              {company.instagram && (
-                <li>
-                  <a
-                    href={company.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#475569] hover:text-[#E1306C] transition-colors flex items-center gap-2 font-medium"
-                  >
-                    <Instagram className="h-4 w-4 text-[#E1306C]" />
-                    <span>{company.instagramHandle || 'Instagram'}</span>
-                  </a>
-                </li>
-              )}
-              {company.linkedin && (
-                <li>
-                  <a
-                    href={company.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#475569] hover:text-[#0A66C2] transition-colors flex items-center gap-2 font-medium"
-                  >
-                    <Linkedin className="h-4 w-4 text-[#0A66C2]" />
-                    <span>{company.linkedinHandle || 'LinkedIn'}</span>
-                  </a>
-                </li>
-              )}
-              <li>
-                <a
-                  href={company.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackWhatsAppClick('footer')}
-                  className="text-[#16A34A] hover:underline transition-colors flex items-center gap-2 pt-1 text-xs font-bold"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  <span>Instant WhatsApp Connect →</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        {/* Service Locations / SEO Keywords Bar */}
-        <div className="py-8 border-t border-[#E2E8F0] mt-8 grid gap-6 md:grid-cols-3 text-xs text-[#475569]">
-          <div>
-            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Vandavasi</h5>
-            <p className="text-[11px] leading-relaxed">Top website developer &amp; web design company in Vandavasi. Business websites, mobile apps &amp; local shop promotion.</p>
-          </div>
-          <div>
-            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Kanchipuram</h5>
-            <p className="text-[11px] leading-relaxed">Expert web developers in Kanchipuram building custom software, retail e-commerce stores &amp; digital solutions.</p>
-          </div>
-          <div>
-            <h5 className="font-bold text-[#0F172A] mb-1">Launch Web Solutions Chennai</h5>
-            <p className="text-[11px] leading-relaxed">Full-stack web software development agency in Chennai crafting React &amp; Spring Boot enterprise web applications.</p>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#475569]">
-          <p>© 2026 Launch Web Solutions (launchwebsolutions.in). All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <span>Web Developer</span>
-            <span>•</span>
-            <span>Web Design Company</span>
-            <span>•</span>
-            <span>Custom Software</span>
-            <span>•</span>
-            <span>Vandavasi | Kanchipuram | Chennai</span>
-          </div>
+        <div className="copy">
+          © {currentYear} Launch Web Solutions (launchwebsolutions.in). All rights reserved. ·{' '}
+          <a href="#home" style={{ color: 'inherit' }}>
+            Back to top ↑
+          </a>
         </div>
       </div>
     </footer>

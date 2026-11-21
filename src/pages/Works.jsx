@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { SectionHeading } from '../components/Section'
+import { ArrowUpRight, FolderGit2 } from 'lucide-react'
 import { WorkModal } from '../components/WorkModal'
 import { Button } from '../components/Button'
 import { SEO } from '../components/SEO'
@@ -21,7 +20,7 @@ export function Works() {
   const worksSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Launch Web Solutions Portfolio Projects',
+    name: 'LaunchWeb Solutions Portfolio Projects',
     itemListElement: works.map((w, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
@@ -43,38 +42,38 @@ export function Works() {
   return (
     <>
       <SEO
-        title="Our Works & Portfolio | Launch Web Solutions (Vandavasi, Kanchipuram, Chennai)"
-        description="Explore live websites, healthcare portals (Sri Sai Clinic), LMS apps, and custom software created by Launch Web Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
-        keywords="Launch Web Solutions portfolio, Sri Sai Clinic website, Web development portfolio, React web apps, Custom software showcase, Web developer projects"
+        title="Our Works &amp; Portfolio | LaunchWeb Solutions"
+        description="Explore live websites, healthcare portals (Sri Sai Clinic), retail shops, LMS platforms, and custom software created by LaunchWeb Solutions for clients in Vandavasi, Kanchipuram, Chennai & globally."
+        keywords="LaunchWeb Solutions portfolio, Sri Sai Clinic website, Web development portfolio, React web apps, Custom software showcase, Web developer projects"
         canonicalUrl="https://launchwebsolutions.in/works"
         schemaJson={worksSchema}
       />
 
-      <div className="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-[#F8FAFC] text-[#0F172A] min-h-screen">
+      <div className="pt-26 pb-16 sm:pt-32 sm:pb-24 bg-[#F8FAFC] text-slate-900 min-h-screen">
         <div className="container-page">
-          <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E2E8F0] bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#4F46E5] shadow-xs">
-              Our Works
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-[#0F172A] leading-tight">
-              Our Works &amp; Live Projects
+          <div className="max-w-3xl space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#4338CA]">
+              Portfolio &amp; Selected Works
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 leading-tight">
+              Production Projects &amp; Deployments
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed text-[#475569]">
-              Explore real production websites, healthcare management portals, e-learning platforms, and custom business applications shipped by LaunchWeb.
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600">
+              Explore production websites, healthcare portals, retail applications, and custom software delivered by LaunchWeb Solutions.
             </p>
           </div>
 
-          {/* Category Filters */}
-          <div className="mt-10 flex flex-wrap gap-2.5">
+          {/* Category Filter Pills (Clean, solid, accessible) */}
+          <div className="mt-8 flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 type="button"
                 onClick={() => setFilter(category)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                className={`min-h-[40px] px-4 py-2 rounded-lg text-xs font-bold transition-colors duration-150 cursor-pointer ${
                   filter === category
-                    ? 'bg-[#4F46E5] text-white shadow-md'
-                    : 'bg-white border border-[#E2E8F0] text-[#475569] hover:border-[#4F46E5] hover:text-[#0F172A]'
+                    ? 'bg-[#4338CA] text-white shadow-2xs'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900'
                 }`}
               >
                 {category}
@@ -83,65 +82,81 @@ export function Works() {
           </div>
 
           {/* Works Grid */}
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((work) => (
               <button
                 key={work.id}
                 type="button"
                 onClick={() => handleOpenWork(work)}
-                className="group relative overflow-hidden rounded-3xl border border-[#E2E8F0] bg-white text-left transition-all duration-300 hover:-translate-y-1.5 hover:border-[#4F46E5] hover:shadow-xl shadow-xs"
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-2xs hover:border-slate-300 transition-colors duration-150 cursor-pointer"
               >
-                <div className="relative h-48 overflow-hidden bg-[#F8FAFC]">
+                <div className="relative h-48 overflow-hidden bg-slate-100">
                   <img
                     src={work.image}
                     alt={work.imageAlt || work.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                     width="600"
                     height="400"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
+                  <span className="absolute top-3 left-3 rounded-md bg-slate-900/85 px-2.5 py-0.5 text-[10px] font-bold text-white">
+                    {work.category}
+                  </span>
                 </div>
+
                 <div className="p-6 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#4F46E5]">
-                      {work.category} • {work.type}
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                      {work.type}
                     </span>
-                    <ArrowUpRight className="h-4 w-4 text-[#475569] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0F172A]" />
+                    <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-slate-900 transition-colors" />
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-[#0F172A]">
+
+                  <h3 className="font-display text-xl font-bold text-slate-900">
                     {work.name}
                   </h3>
-                  <p className="text-xs leading-relaxed text-[#475569] line-clamp-3">
+
+                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-2">
                     {work.summary}
                   </p>
-                  <div className="pt-2 flex items-center justify-between text-xs font-semibold text-[#4F46E5]">
-                    <span>View Project Info</span>
-                    <span>→</span>
+
+                  <div className="pt-1 flex flex-wrap gap-1.5">
+                    {work.focus.slice(0, 3).map((f) => (
+                      <span
+                        key={f}
+                        className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600"
+                      >
+                        {f}
+                      </span>
+                    ))}
                   </div>
+
+                  <p className="pt-2 text-xs font-semibold text-[#4338CA] group-hover:underline">
+                    View Project Case Study &rarr;
+                  </p>
                 </div>
               </button>
             ))}
           </div>
 
-          {/* Bottom Callout Banner */}
-          <div className="mt-16 rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between shadow-xl shadow-slate-900/5">
-            <div>
-              <h2 className="font-display text-2xl font-bold text-[#0F172A]">
-                Have a Project Scope in Mind?
-              </h2>
-              <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-lg">
-                Let's discuss how LaunchWeb can design and engineer a custom digital product tailored to your business needs.
-              </p>
+          {/* Bottom CTA */}
+          <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 text-center space-y-4 shadow-xs">
+            <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Have a Project in Mind?
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+              We can help bring your digital product to life with clean code, modern UX, and fast delivery timelines.
+            </p>
+            <div className="pt-2">
+              <Button to="/contact" size="lg" variant="primary">
+                Start Your Project
+              </Button>
             </div>
-            <Button to="/contact" variant="primary">
-              Start Your Project
-            </Button>
           </div>
         </div>
-      </div>
 
-      <WorkModal work={activeWork} onClose={() => setActiveWork(null)} />
+        <WorkModal work={activeWork} onClose={() => setActiveWork(null)} />
+      </div>
     </>
   )
 }
