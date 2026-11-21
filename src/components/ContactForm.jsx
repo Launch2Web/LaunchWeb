@@ -1,11 +1,11 @@
 import { useForm, ValidationError } from '@formspree/react'
-import { CheckCircle2, MessageSquare } from 'lucide-react'
+import { CheckCircle2, MessageSquare, Send, Sparkles } from 'lucide-react'
 import { budgets, company, projectTypes } from '../data/content'
 import { Button } from './Button'
 import { trackContactFormSubmit, trackWhatsAppClick } from '../utils/analytics'
 
 const fieldClass =
-  'w-full rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-3 text-sm text-[#0F172A] placeholder-[#94A3B8] outline-none transition duration-200 focus:border-[#4F46E5] focus:bg-white focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-50'
+  'w-full min-h-[44px] rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition duration-150 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 disabled:opacity-50'
 
 export function ContactForm({ compact = false }) {
   const [state, handleSubmit] = useForm('xojgazpl')
@@ -21,26 +21,26 @@ export function ContactForm({ compact = false }) {
 
   if (state.succeeded) {
     return (
-      <div className="rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-12 text-center space-y-4 shadow-xl shadow-slate-900/5">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#16A34A]/10 text-[#16A34A] border border-[#16A34A]/30">
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center space-y-4 shadow-xl shadow-slate-900/5">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200/60">
           <CheckCircle2 className="h-8 w-8" />
         </div>
-        <h3 className="font-display text-2xl font-extrabold text-[#0F172A]">
+        <h3 className="font-display text-2xl font-extrabold text-slate-900">
           Enquiry Received!
         </h3>
-        <p className="text-sm leading-relaxed text-[#475569] max-w-sm mx-auto">
-          Thank you for contacting LaunchWeb. Our team will review your business requirements and reply within 2 hours.
+        <p className="text-sm leading-relaxed text-slate-600 max-w-sm mx-auto">
+          Thank you for reaching out to LaunchWeb Solutions. Our engineering team will review your business requirements and reply within 2 hours.
         </p>
-        <div className="pt-2">
+        <div className="pt-3">
           <a
             href={company.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick('form_success')}
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[#16A34A] hover:underline"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
           >
-            <MessageSquare className="h-4 w-4" />
-            Need an urgent response? Chat on WhatsApp →
+            <MessageSquare className="h-4 w-4 text-emerald-600" />
+            <span>Need an urgent reply? Chat on WhatsApp →</span>
           </a>
         </div>
       </div>
@@ -50,20 +50,17 @@ export function ContactForm({ compact = false }) {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="rounded-3xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6"
+      className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 space-y-5"
     >
-      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-4">
-        <div>
-          <h3 className="font-display text-lg font-bold text-[#0F172A]">
-            Start a Project Conversation
-          </h3>
-          <p className="text-xs text-[#475569]">Fill in details for a custom estimate</p>
-        </div>
-        <span className="flex h-2.5 w-2.5 rounded-full bg-[#16A34A] animate-pulse" />
+      <div className="border-b border-slate-100 pb-4">
+        <h3 className="font-display text-lg font-bold text-slate-900">
+          Send Us a Message
+        </h3>
+        <p className="text-xs text-slate-500 mt-0.5">Tell us about your project requirements</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
           Your Name *
           <input
             id="name"
@@ -74,25 +71,25 @@ export function ContactForm({ compact = false }) {
             required
             disabled={state.submitting}
           />
-          <ValidationError prefix="Name" field="name" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Name" field="name" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
           Email Address *
           <input
             id="email"
             type="email"
             name="email"
             className={fieldClass}
-            placeholder="john@business.com"
+            placeholder="john@example.com"
             autoComplete="email"
             required
             disabled={state.submitting}
           />
-          <ValidationError prefix="Email" field="email" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Email" field="email" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
           Phone Number
           <input
             id="phone"
@@ -103,11 +100,11 @@ export function ContactForm({ compact = false }) {
             autoComplete="tel"
             disabled={state.submitting}
           />
-          <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Phone" field="phone" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
-          Company / Business
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
+          Company / Business Name
           <input
             id="business"
             name="business"
@@ -115,10 +112,10 @@ export function ContactForm({ compact = false }) {
             placeholder="Your Brand Name"
             disabled={state.submitting}
           />
-          <ValidationError prefix="Business" field="business" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Business" field="business" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
           Project Service Need
           <select
             id="projectType"
@@ -127,17 +124,17 @@ export function ContactForm({ compact = false }) {
             defaultValue=""
             disabled={state.submitting}
           >
-            <option value="" disabled>Select service</option>
+            <option value="" disabled>Select service required</option>
             {projectTypes.map((type) => (
-              <option key={type} value={type} className="bg-white text-[#0F172A]">
+              <option key={type} value={type} className="bg-white text-slate-900">
                 {type}
               </option>
             ))}
           </select>
-          <ValidationError prefix="Project Type" field="projectType" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Project Type" field="projectType" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569]">
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700">
           Estimated Budget
           <select
             id="budget"
@@ -148,39 +145,41 @@ export function ContactForm({ compact = false }) {
           >
             <option value="" disabled>Select budget range</option>
             {budgets.map((budget) => (
-              <option key={budget} value={budget} className="bg-white text-[#0F172A]">
+              <option key={budget} value={budget} className="bg-white text-slate-900">
                 {budget}
               </option>
             ))}
           </select>
-          <ValidationError prefix="Budget" field="budget" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Budget" field="budget" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
 
-        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#475569] sm:col-span-2">
-          Project Requirements &amp; Goals *
+        <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-700 sm:col-span-2">
+          Project Scope &amp; Deliverables *
           <textarea
             id="message"
             name="message"
             rows={compact ? 4 : 5}
             className={fieldClass}
-            placeholder="Describe your website, web application, or digital solution goals..."
+            placeholder="Describe what you want to build (e.g., website redesign, medical booking portal, sports shop store, custom software)..."
             required
             disabled={state.submitting}
           />
-          <ValidationError prefix="Message" field="message" errors={state.errors} className="text-xs font-normal text-[#EF4444]" />
+          <ValidationError prefix="Message" field="message" errors={state.errors} className="text-xs font-normal text-rose-600" />
         </label>
       </div>
 
       <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
         <Button
           type="submit"
+          variant="primary"
           className="w-full sm:w-auto min-w-[200px]"
           disabled={state.submitting}
+          iconComponent={Send}
         >
-          {state.submitting ? 'Sending...' : 'Send Enquiry'}
+          {state.submitting ? 'Sending Request...' : 'Send Project Enquiry'}
         </Button>
-        <span className="text-xs text-[#475569]">
-          ⚡ Average response time: 2 hours
+        <span className="text-xs font-medium text-slate-500">
+          ⚡ Average response time: under 2 hours
         </span>
       </div>
     </form>

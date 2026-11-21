@@ -1,4 +1,4 @@
-import { Mail, Phone, MessageSquare, MapPin, Clock, Instagram, Linkedin } from 'lucide-react'
+import { Mail, Phone, MessageSquare, MapPin, Clock, Instagram, Linkedin, Globe } from 'lucide-react'
 import { SectionHeading } from '../components/Section'
 import { ContactForm } from '../components/ContactForm'
 import { SEO } from '../components/SEO'
@@ -9,12 +9,12 @@ export function Contact() {
   const contactSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'Contact Launch Web Solutions',
-    description: 'Get in touch with Launch Web Solutions for custom web design, software development, and digital solutions in Vandavasi, Kanchipuram, and Chennai.',
+    name: 'Contact LaunchWeb Solutions',
+    description: 'Get in touch with LaunchWeb Solutions for custom web design, software development, and digital solutions in Vandavasi, Kanchipuram, and Chennai.',
     url: 'https://launchwebsolutions.in/contact',
     mainEntity: {
       '@type': 'ProfessionalService',
-      name: 'Launch Web Solutions',
+      name: 'LaunchWeb Solutions',
       telephone: '+919585523658',
       email: 'launchwebservice@gmail.com',
       url: 'https://launchwebsolutions.in/',
@@ -29,140 +29,153 @@ export function Contact() {
   return (
     <>
       <SEO
-        title="Contact Launch Web Solutions | Web Developer in Vandavasi, Kanchipuram & Chennai"
-        description="Contact Launch Web Solutions (launchwebsolutions.in) for custom web design, software development, or AI ads inquiries. Call +91 95855 23658 or instant WhatsApp."
-        keywords="Contact Launch Web Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, Hire web developer Vandavasi, Hire web developer Kanchipuram, Hire web developer Chennai"
+        title="Contact LaunchWeb Solutions | Web Developer in Vandavasi, Kanchipuram &amp; Chennai"
+        description="Contact LaunchWeb Solutions (launchwebsolutions.in) for custom web design, software engineering, or AI ads inquiries. Call +91 95855 23658 or instant WhatsApp."
+        keywords="Contact LaunchWeb Solutions, Launch Web Solutions Vandavasi, Launch Web Solutions Kanchipuram, Launch Web Solutions Chennai, Hire web developer Vandavasi, Hire web developer Kanchipuram, Hire web developer Chennai"
         canonicalUrl="https://launchwebsolutions.in/contact"
         schemaJson={contactSchema}
       />
 
-      <div className="pt-28 pb-20 sm:pt-36 sm:pb-28 bg-[#F8FAFC] text-[#0F172A] min-h-screen">
+      <div className="pt-26 pb-16 sm:pt-32 sm:pb-24 bg-[#F8FAFC] text-slate-900 min-h-screen">
         <div className="container-page">
-          <div className="max-w-3xl space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E2E8F0] bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#4F46E5] shadow-xs">
-              Get In Touch
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-[#0F172A] leading-tight">
-              Let's Build Something Great Together.
+          <div className="max-w-3xl space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#4338CA]">
+              Contact Us &amp; Free Quote
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 leading-tight">
+              Let's Discuss Your Project
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed text-[#475569]">
-              Have a project question or ready to start? Reach out to LaunchWeb through our enquiry form or direct channels below.
+            <p className="text-base sm:text-lg leading-relaxed text-slate-600">
+              Have a question or ready to begin? Reach out via our inquiry form or contact our team directly.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-12 items-start">
+          <div className="mt-10 grid gap-10 lg:grid-cols-12 items-start">
             {/* Left Column: Direct Info */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="rounded-3xl border border-[#E2E8F0] bg-white p-8 space-y-6 shadow-xs">
-                <h2 className="font-display text-xl font-bold text-[#0F172A]">
+            <div className="lg:col-span-5 space-y-5">
+              <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-8 space-y-5 shadow-2xs">
+                <h2 className="font-display text-xl font-bold text-slate-900">
                   Direct Contact Channels
                 </h2>
 
-                <div className="space-y-6 text-sm">
+                <div className="space-y-5 text-sm">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">
-                      Email Support
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                      Email Communication
                     </p>
                     <a
                       href={`mailto:${company.email}`}
                       onClick={() => trackEmailClick(company.email)}
-                      className="flex items-center gap-2.5 font-display text-lg font-bold text-[#0F172A] hover:text-[#4F46E5] transition-colors"
+                      className="flex items-center gap-2.5 font-display text-base sm:text-lg font-bold text-slate-900 hover:text-slate-700 transition-colors"
                     >
-                      <Mail className="h-5 w-5 text-[#4F46E5]" />
-                      {company.email}
+                      <Mail className="h-5 w-5 text-slate-500" />
+                      <span>{company.email}</span>
                     </a>
                   </div>
 
-                  <div className="pt-4 border-t border-[#E2E8F0]">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">
-                      Phone &amp; Call Lines
+                  <div className="pt-3.5 border-t border-slate-100">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                      Phone &amp; Direct Call Lines
                     </p>
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       {company.phones.map((phone) => (
                         <a
                           key={phone.href}
                           href={phone.href}
                           onClick={() => trackPhoneClick(phone.label)}
-                          className="flex items-center gap-2.5 font-display text-lg font-bold text-[#0F172A] hover:text-[#2563EB] transition-colors"
+                          className="flex items-center gap-2.5 font-display text-base sm:text-lg font-bold text-slate-900 hover:text-slate-700 transition-colors"
                         >
-                          <Phone className="h-5 w-5 text-[#2563EB]" />
-                          {phone.label}
+                          <Phone className="h-5 w-5 text-slate-500" />
+                          <span>{phone.label}</span>
                         </a>
                       ))}
                     </div>
                   </div>
 
-                  {company.instagram && (
-                    <div className="pt-4 border-t border-[#E2E8F0]">
-                      <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">
-                        Instagram Profile
-                      </p>
-                      <a
-                        href={company.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2.5 font-display text-base font-bold text-[#E1306C] hover:underline"
-                      >
-                        <Instagram className="h-5 w-5 text-[#E1306C]" />
-                        <span>{company.instagramHandle}</span>
-                      </a>
-                    </div>
-                  )}
+                  <div className="pt-3.5 border-t border-slate-100">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                      Official Website
+                    </p>
+                    <a
+                      href={company.url}
+                      className="flex items-center gap-2.5 font-display text-base sm:text-lg font-bold text-slate-900 hover:text-[#4338CA] transition-colors"
+                    >
+                      <Globe className="h-5 w-5 text-slate-500" />
+                      <span>{company.url}</span>
+                    </a>
+                  </div>
 
-                  {company.linkedin && (
-                    <div className="pt-4 border-t border-[#E2E8F0]">
-                      <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">
-                        LinkedIn Page
-                      </p>
-                      <a
-                        href={company.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2.5 font-display text-base font-bold text-[#0A66C2] hover:underline"
-                      >
-                        <Linkedin className="h-5 w-5 text-[#0A66C2]" />
-                        <span>{company.linkedinHandle}</span>
-                      </a>
-                    </div>
-                  )}
-
-                  <div className="pt-4 border-t border-[#E2E8F0]">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-2">
-                      Instant Messaging
+                  <div className="pt-3.5 border-t border-slate-100">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                      Instant WhatsApp Messenger
                     </p>
                     <a
                       href={company.whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackWhatsAppClick('contact_page')}
-                      className="inline-flex items-center gap-2.5 font-display text-base font-bold text-[#16A34A] hover:underline"
+                      className="inline-flex min-h-[40px] items-center gap-2.5 font-display text-base font-bold text-emerald-800 hover:underline"
                     >
-                      <MessageSquare className="h-5 w-5" />
-                      Chat on WhatsApp →
+                      <MessageSquare className="h-5 w-5 text-emerald-600" />
+                      <span>Chat Directly on WhatsApp →</span>
                     </a>
                   </div>
 
-                  <div className="pt-4 border-t border-[#E2E8F0]">
-                    <p className="text-xs font-bold uppercase tracking-wider text-[#475569] mb-1">
-                      Working Model
+                  {company.instagram && (
+                    <div className="pt-3.5 border-t border-slate-100">
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                        Instagram
+                      </p>
+                      <a
+                        href={company.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-display text-sm font-bold text-slate-700 hover:text-slate-900"
+                      >
+                        <Instagram className="h-4 w-4 text-[#E1306C]" />
+                        <span>{company.instagramHandle}</span>
+                      </a>
+                    </div>
+                  )}
+
+                  {company.linkedin && (
+                    <div className="pt-3.5 border-t border-slate-100">
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                        LinkedIn
+                      </p>
+                      <a
+                        href={company.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-display text-sm font-bold text-slate-700 hover:text-slate-900"
+                      >
+                        <Linkedin className="h-4 w-4 text-[#0A66C2]" />
+                        <span>{company.linkedinHandle}</span>
+                      </a>
+                    </div>
+                  )}
+
+                  <div className="pt-3.5 border-t border-slate-100">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                      Service Hubs
                     </p>
-                    <p className="flex items-center gap-2 text-sm text-[#475569]">
-                      <MapPin className="h-4 w-4 text-[#4F46E5]" />
-                      {company.location}
+                    <p className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                      <MapPin className="h-4 w-4 text-[#EA580C] shrink-0" />
+                      <span>{company.location}</span>
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Response Time Guarantee */}
-              <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 flex items-center gap-4 shadow-xs">
-                <Clock className="h-8 w-8 text-[#4F46E5] shrink-0" />
+              <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-center gap-3.5 shadow-2xs">
+                <Clock className="h-7 w-7 text-[#4338CA] shrink-0" />
                 <div>
-                  <h3 className="font-display text-sm font-bold text-[#0F172A]">
-                    Quick Turnaround
+                  <h3 className="font-display text-sm font-bold text-slate-900">
+                    Guaranteed Fast Turnaround
                   </h3>
-                  <p className="text-xs text-[#475569] mt-1">
-                    All enquiries receive a response and preliminary project estimate within 2 hours.
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    All project queries receive a comprehensive consultation response within 2 hours.
                   </p>
                 </div>
               </div>

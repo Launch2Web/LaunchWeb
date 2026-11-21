@@ -1,6 +1,6 @@
 export const company = {
   name: 'Launch Web Solutions',
-  tagline: 'Web Developer • Custom Software • Digital Solutions',
+  tagline: 'Web Design • Digital Solutions • Video Production',
   domain: 'launchwebsolutions.in',
   url: 'https://launchwebsolutions.in/',
   email: 'launchwebservice@gmail.com',
@@ -41,7 +41,7 @@ export const serviceLocations = [
 export const navLinks = [
   { to: '/', label: 'Home', end: true },
   { to: '/services', label: 'Services' },
-  { to: '/works', label: 'Our Works' },
+  { to: '/works', label: 'Portfolio' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -87,6 +87,42 @@ export const whyChoose = [
   },
 ]
 
+export const testimonials = [
+  {
+    id: 'sri-sai-clinic',
+    client: 'Dr. S. K. Raman',
+    role: 'Chief Medical Officer',
+    company: 'Sri Sai Clinic',
+    project: 'Healthcare Website & Booking Portal',
+    rating: 5,
+    quote:
+      'LaunchWeb Solutions built an exceptional digital portal for our clinic. Our patients find it effortless to browse medical specialties, check doctor schedules, and request appointments. Clean, fast, and works seamlessly across mobile devices.',
+    location: 'Tamil Nadu',
+  },
+  {
+    id: 'sri-sai-sports',
+    client: 'K. Vignesh',
+    role: 'Managing Director',
+    company: 'Sri Sai Sports Shop',
+    project: 'Retail Storefront & Landing Experience',
+    rating: 5,
+    quote:
+      'Our customer inquiries and local footfall increased noticeably after launching our new website. The team understood our retail requirements, highlighted our sports gear beautifully, and added direct WhatsApp connectivity that converts visitors into customers.',
+    location: 'Tamil Nadu',
+  },
+  {
+    id: 'skill-bridge',
+    client: 'Praveen Kumar',
+    role: 'Head of Product',
+    company: 'Skill Bridge LMS',
+    project: 'E-Learning Platform & Backend APIs',
+    rating: 5,
+    quote:
+      'The React front-end and Java Spring Boot backend engineered by LaunchWeb gave our learning platform the speed, security, and scalability we required. High-grade architectural code with dedicated post-launch support.',
+    location: 'Chennai',
+  },
+]
+
 export const services = [
   {
     id: 'web-design-dev',
@@ -105,24 +141,8 @@ export const services = [
     ],
   },
   {
-    id: 'custom-software',
-    number: '02',
-    title: 'Custom Software',
-    tagline: 'Scalable Web Applications',
-    description: 'Purpose-built web applications designed around the specific way your business operates, backed by Java Spring Boot & RESTful backend architectures.',
-    icon: 'Code2',
-    span: '',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=80',
-    tags: ['Web Apps', 'Spring Boot', 'REST APIs', 'Databases'],
-    deliverables: [
-      'Tailored Enterprise Workflows',
-      'Spring Boot & REST API Integrations',
-      'Secure User Auth & Database Management',
-    ],
-  },
-  {
     id: 'business-websites',
-    number: '03',
+    number: '02',
     title: 'Business Websites',
     tagline: 'Digital Trust & Lead Conversion',
     description: 'Professional websites that establish immediate credibility and make it effortless for local & international clients to connect with your business.',
@@ -138,7 +158,7 @@ export const services = [
   },
   {
     id: 'digital-solutions',
-    number: '04',
+    number: '03',
     title: 'Digital Solutions',
     tagline: 'Smart Business Tools',
     description: 'Practical digital tools that simplify workflows, automate repetitive manual tasks, and enable teams to operate with higher productivity.',
@@ -154,7 +174,7 @@ export const services = [
   },
   {
     id: 'ecommerce-solutions',
-    number: '05',
+    number: '04',
     title: 'E-Commerce Platforms',
     tagline: 'Conversion Storefronts',
     description: 'Sleek online storefronts with friction-free product catalog browsing, mobile shopping optimization, and conversion-focused checkout flows.',
@@ -169,24 +189,8 @@ export const services = [
     ],
   },
   {
-    id: 'ui-ux-design',
-    number: '06',
-    title: 'UI/UX Design',
-    tagline: 'Product Experience Design',
-    description: 'Thoughtful user interfaces and digital product experiences built on clear typography, accessible contrast, and smooth micro-interactions.',
-    icon: 'Palette',
-    span: '',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80',
-    tags: ['Figma Wireframes', 'Design Systems', 'User Journeys', 'Prototyping'],
-    deliverables: [
-      'Figma Design System Architecture',
-      'User Journey & Wireframe Prototypes',
-      'Accessible High-Contrast UI Layouts',
-    ],
-  },
-  {
     id: 'video-editing',
-    number: '07',
+    number: '05',
     title: 'Video Editing',
     tagline: 'High-Impact Commercial Editing',
     description: 'Professional video editing services designed to showcase your products, services, and brand identity with cinematic cuts, sound design, and motion graphic overlays.',
@@ -202,7 +206,7 @@ export const services = [
   },
   {
     id: 'ai-ads-promotion',
-    number: '08',
+    number: '06',
     title: 'AI Ads & Shop Promotion Videos',
     tagline: 'AI-Powered Video Commercials',
     description: 'AI-assisted promotional videos and high-converting video ad creatives tailored for local businesses, shops, and startups to drive customer visits and social leads.',
@@ -384,13 +388,11 @@ export const faqs = [
 
 export const projectTypes = [
   'Business Website',
-  'Custom Web Application',
   'Healthcare / Medical Site',
   'E-Commerce Storefront',
   'Video Editing & Commercials',
   'AI Ads & Shop Promotion Videos',
-  'Website Redesign',
-  'UI/UX Design System',
+  'Website Redesign & Optimization',
   'Other Digital Solution',
 ]
 

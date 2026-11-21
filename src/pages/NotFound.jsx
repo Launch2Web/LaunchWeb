@@ -12,9 +12,9 @@ export function NotFound() {
 
       <div className="pt-32 pb-24 sm:pt-40 sm:pb-32 bg-[#F8FAFC] text-[#0F172A] min-h-[70vh] flex items-center justify-center text-center">
         <div className="container-page max-w-xl space-y-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#4F46E5]/30 bg-[#4F46E5]/10 px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#4F46E5]">
-            Error 404
-          </span>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#4338CA]">
+            Error 404 &bull; Page Not Found
+          </p>
           <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-[#0F172A]">
             Page Not Found
           </h1>
